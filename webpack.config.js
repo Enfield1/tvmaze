@@ -6,13 +6,10 @@ module.exports = {
     mode: isDev ? 'development' : 'production',
     devtool: isDev ? "source-map" : false,
     watch: isDev,
-
     entry: './src/index.ts',
-
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
-
     module: {
         rules: [
             {
@@ -24,18 +21,11 @@ module.exports = {
                     }
                 ]
             },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            {
-                enforce: "pre",
-                test: /\.js$/,
-                loader: "source-map-loader"
-            },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
             },
         ]
     },
-
     plugins: [new CleanWebpackPlugin(),],
 };
