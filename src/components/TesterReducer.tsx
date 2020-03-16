@@ -1,11 +1,15 @@
 import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {setLoaderShows} from '../reducers/showsReducer';
-import {useCallback} from 'react';
+import {getListShows, setLoaderShows} from '../reducers/showsReducer';
+import {useCallback, useEffect} from 'react';
 
 const TesterReducer = () => {
   const loading = useSelector((state: any) => state.shows.loading);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getListShows({}));
+  }, [dispatch]);
 
   const setLoader = useCallback(() => {
     dispatch(setLoaderShows(!loading));
