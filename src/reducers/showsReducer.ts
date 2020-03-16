@@ -50,7 +50,7 @@ function* getListRequestShows() {
   yield put({type: showsActions.LOADING, data: true});
 
   try {
-    const response = yield call(axios.get,'localhost:3000/shows');
+    const response = yield call(axios.get,'/api/shows');
     console.log(response);
   } catch(error) {
     console.error(error);
