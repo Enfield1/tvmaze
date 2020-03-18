@@ -10,7 +10,7 @@ module.exports = {
     watch: isDev,
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
-        compress: false,
+        compress: true,
         port: 9000,
         proxy: {
             '/api': {
