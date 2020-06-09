@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start_db": "json-server --watch json-server-db/json-db.json"
+    "start_db": "json-server --watch -d=1000 json-server-db/json-db.json"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
     "antd": "^4.0.3",
     "axios": "^0.19.2",
     "react": "^16.12.0",

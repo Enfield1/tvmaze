@@ -1,0 +1,19 @@
+.show-list-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.show-list {
+    max-width: 1024px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(18%, 1fr));
+    grid-gap: 16px;
+    padding: 16px;
+}
+
+.show-list.loading {
+    width: 100%;
+    min-height: 60vh;
+}

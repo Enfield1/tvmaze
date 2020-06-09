@@ -2,8 +2,8 @@ import * as React from 'react';
 import './style.css';
 import 'antd/dist/antd.css';
 import {Provider} from 'react-redux';
-import TesterReducer from './components/TesterReducer';
 import {store} from './reducers/rootReducer';
+import ShowsList from './components/show/ShowsList';
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <div className="test-class">
         Hell, o-world
       </div>
-      <TesterReducer/>
+      <ShowsList/>
     </Provider>
   );
 }

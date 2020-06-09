@@ -6,6 +6,7 @@ import {showsReducer, showsSagas} from './showsReducer';
 const rootReducer = combineReducers({
   shows: showsReducer,
 });
+export type RootState = ReturnType<typeof rootReducer>
 
 const sagaMiddleware = createSagaMiddleware();
 const rootSaga = function* helloSaga(): any {
