@@ -4,10 +4,10 @@ import { RootState } from '../../reducers/rootReducer';
 import { useEffect } from 'react';
 import { getListShows, setPaginationShows } from '../../reducers/showsReducer';
 import Show from './Show';
-import './showsList.css';
+import './showList.css';
 import { Spin } from 'antd';
 
-const ShowsList = () => {
+const ShowList = () => {
   const dispatch = useDispatch();
   const { shows, loading, pagination } = useSelector((state: RootState) => state.shows);
 
@@ -48,4 +48,4 @@ const ShowsList = () => {
   );
 };
 
-export default ShowsList;
+export default ShowList;
