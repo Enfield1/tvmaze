@@ -1,7 +1,8 @@
-import {takeEvery, put, call, select} from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { RootState } from './rootReducer';
 import { Show } from '../types/show';
+import getLastPaginationPage from '../helpers/getLastPaginationPage';
 
 export const showsActions = {
   GET_LIST: 'GET_LIST_SHOWS',
@@ -10,22 +11,21 @@ export const showsActions = {
   SET_LIST_PAGINATION: 'SET_LIST_PAGINATION_SHOWS',
 };
 
-export const getListShows = (data: any) => ({
+export const getListShows = () => ({
   type: showsActions.GET_LIST,
-  data,
 });
 
-export const setLoaderShows = (data: boolean) => ({
+export const setLoaderShows = (data: ShowsState['loading']) => ({
   type: showsActions.LOADING,
   data,
 });
 
-export const setListShows = (data: any) => ({
+export const setListShows = (data: { shows: ShowsState['shows']; pagination: Partial<ShowsState['pagination']> }) => ({
   type: showsActions.SET_LIST,
   data,
 });
 
-export const setPaginationShows = (data: any) => ({
+export const setPaginationShows = (data: Partial<ShowsState['pagination']>) => ({
   type: showsActions.SET_LIST_PAGINATION,
   data,
 });
@@ -34,7 +34,9 @@ interface ShowsState {
   shows: Show[];
   pagination: {
     limit: number;
-    page: number;
+    current: number;
+    first: number;
+    last: number;
   };
   loading: boolean;
 }
@@ -43,7 +45,9 @@ const initialState: ShowsState = {
   shows: [],
   pagination: {
     limit: 20,
-    page: 1,
+    current: 1,
+    first: 1,
+    last: 0,
   },
   loading: false,
 };
@@ -53,7 +57,11 @@ export const showsReducer = (state: ShowsState = initialState, action: any): Sho
     case showsActions.SET_LIST:
       return {
         ...state,
-        shows: action.data,
+        shows: action.data.shows,
+        pagination: {
+          ...state.pagination,
+          ...action.data.pagination,
+        }
       };
 
     case showsActions.LOADING:
@@ -76,24 +84,26 @@ export const showsReducer = (state: ShowsState = initialState, action: any): Sho
   }
 };
 
-const getPaginationState = (state: RootState) => state.shows.pagination;
+const getPaginationState = (state: RootState): ShowsState['pagination'] => state.shows.pagination;
 
 function* getListRequestShows() {
   yield put(setLoaderShows(true));
-  const pagination = yield select(getPaginationState);
+  const pagination: ShowsState['pagination'] = yield select(getPaginationState);
   const params = {
-    _page: pagination.page,
+    _page: pagination.current,
     _limit: pagination.limit,
   }
   try {
     const response = yield call(
       axios.get,
       '/api/shows',
-      {params},
+      { params },
     );
 
-    yield put(setListShows(response.data));
-  } catch(error) {
+    const last = getLastPaginationPage(response.headers.link);
+
+    yield put(setListShows({ shows: response.data, pagination: { last } }));
+  } catch (error) {
     console.error(error);
   }
   yield put(setLoaderShows(false));
