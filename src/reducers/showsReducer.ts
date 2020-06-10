@@ -1,8 +1,8 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
-import axios from 'axios';
+import { put, call, select, takeLatest } from 'redux-saga/effects';
 import { RootState } from './rootReducer';
 import { Show } from '../types/show';
 import getLastPaginationPage from '../helpers/getLastPaginationPage';
+import { Http } from '../helpers/Http';
 
 export const showsActions = {
   GET_LIST: 'GET_LIST_SHOWS',
@@ -93,22 +93,20 @@ function* getListRequestShows() {
     _page: pagination.current,
     _limit: pagination.limit,
   }
+
   try {
-    const response = yield call(
-      axios.get,
-      '/api/shows',
-      { params },
-    );
+    const response = yield call(Http.get, '/api/shows', params);
 
     const last = getLastPaginationPage(response.headers.link);
 
     yield put(setListShows({ shows: response.data, pagination: { last } }));
   } catch (error) {
     console.error(error);
+  } finally {
+    yield put(setLoaderShows(false));
   }
-  yield put(setLoaderShows(false));
 }
 
 export const showsSagas = function* () {
-  yield takeEvery([showsActions.GET_LIST, showsActions.SET_LIST_PAGINATION], getListRequestShows);
+  yield takeLatest([showsActions.GET_LIST, showsActions.SET_LIST_PAGINATION], getListRequestShows);
 };
