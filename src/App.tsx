@@ -1,14 +1,19 @@
 import * as React from 'react';
 import './style.css';
+import 'antd/dist/antd.css';
+import { Provider } from 'react-redux';
+import { store } from './reducers/rootReducer';
+import ShowList from './components/show/ShowList';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="test-class">
-        Hell, o-world
+
+const App = (): JSX.Element => {
+  return (
+    <Provider store={ store }>
+      <div className="app-wrapper">
+        <ShowList/>
       </div>
-    );
-  }
+    </Provider>
+  );
 }
 
 export default App;

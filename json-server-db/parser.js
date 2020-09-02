@@ -6,11 +6,23 @@ var fs = require('fs');
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    function transformDateFormat(date) {
+        let transformedDate = '';
+        if (typeof date === 'string') {
+            transformedDate = date.replace(/-/g, '/');
+        }
+
+        return transformedDate;
+    }
+
     async function sendRequest(url, page, lastPage) {
         const urlWithPage = `${url}?page=${page}`;
         const response = await fetch(urlWithPage);
         if (response.ok) {
             const json = await response.json();
+            json.forEach((show) => {
+                show.premiered = transformDateFormat(show.premiered);
+            })
             let stringJson = JSON.stringify(json);
 
             const isFirst = page === 0;
