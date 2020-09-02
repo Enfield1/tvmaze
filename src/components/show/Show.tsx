@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Show } from '../../types/show';
-import { Card, Tag, Popover, Badge, Typography } from 'antd';
+import { Card, Tag, Popover, Badge } from 'antd';
 import './show.css';
 import { HeartOutlined } from '@ant-design/icons/lib';
 
@@ -8,7 +8,7 @@ interface ShowProps {
   show: Show;
 }
 
-const Show = (props: ShowProps) => {
+const Show = (props: ShowProps): JSX.Element => {
   const { show } = props;
 
   return (

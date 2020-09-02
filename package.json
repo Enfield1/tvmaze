@@ -46,6 +46,8 @@
     "@ant-design/icons": "^4.2.1",
     "antd": "^4.0.3",
     "axios": "^0.19.2",
+    "eslint-plugin-react": "^7.20.6",
+    "moment": "^2.27.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",
