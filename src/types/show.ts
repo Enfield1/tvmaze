@@ -22,7 +22,7 @@ export interface Show {
     name: string;       // "CBS"
   };
   officialSite: string; // "http://www.cbs.com/shows/under-the-dome/"
-  premiered: string;    // "2013-06-24"
+  premiered: string;    // "2013/06/24"
   rating: {
     average: number;    // 6.5
   };
