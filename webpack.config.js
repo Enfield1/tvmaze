@@ -17,13 +17,18 @@ module.exports = {
                 target: 'http://localhost:3000',
                 pathRewrite: {'^/api' : ''}
             }
-        }
+        },
+        historyApiFallback: true,
     },
     entry: './src/index.ts',
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'main.js'
-    },
+    output: isDev
+        ? {
+            publicPath: '/',
+        }
+        : {
+            path: path.resolve(__dirname, './dist'),
+            filename: 'main.js'
+        },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
     },

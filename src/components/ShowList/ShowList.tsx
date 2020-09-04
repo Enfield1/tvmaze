@@ -8,11 +8,14 @@ import './showList.css';
 import { Pagination, Spin, Typography, DatePicker } from 'antd';
 import Search from "antd/lib/input/Search";
 import { Moment } from 'moment';
+import { RouteComponentProps } from "@reach/router";
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
-const ShowList = (): JSX.Element => {
+type ShowListProps = RouteComponentProps
+
+const ShowList = (props: ShowListProps): JSX.Element => {
   const dispatch = useDispatch();
   const { shows, loading, pagination, filter } = useSelector((state: RootState) => state.shows);
 
