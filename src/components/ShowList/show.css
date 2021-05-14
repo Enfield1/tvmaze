@@ -1,8 +1,15 @@
-.show-list-item .ant-card-meta-title {
-    min-height: 50px;
-    white-space: unset;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.show-list-card {
+    transition: 0.1s filter ease-out;
+}
+
+.show-list-card:hover {
+    filter: brightness(75%);
+}
+
+.show-list-card-cover {
+    border-radius: 8px;
+}
+
+.show-list-card .show-list-card-title {
+    margin: 0.5em 0 0;
 }
